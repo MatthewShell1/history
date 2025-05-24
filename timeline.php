@@ -2,11 +2,11 @@
 function formatNumber($number)
 {
   if (abs($number) >= 1_000_000_000) {
-    return round($number / 1_000_000_000, 1) . 'B';
+    return round($number / 1_000_000_000, 1) . ' Billion Years Ago';
   } elseif (abs($number) >= 1_000_000) {
-    return round($number / 1_000_000, 1) . 'M';
+    return round($number / 1_000_000, 1) . ' Million Years Ago';
   } elseif (abs($number) >= 1_000) {
-    return round($number / 1_000, 1) . 'K';
+    return round($number / 1_000, 1) . ' Thousand Years Ago';
   } else {
     return (string)$number;
   }
@@ -129,7 +129,7 @@ $catResult = $conn->query($catSql);
         link.addEventListener('click', function() {
           const shortDesc = this.parentNode.querySelector('.short-description');
           const fullDesc = this.parentNode.querySelector('.full-description');
-          
+
           if (this.textContent === 'More') {
             fullDesc.style.display = 'inline';
             shortDesc.style.display = 'none';
