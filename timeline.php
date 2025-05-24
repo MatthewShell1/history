@@ -91,8 +91,10 @@ $catResult = $conn->query($catSql);
       $contArrowClass = ($counter % 2 === 0) ? 'left-container-arrow' : 'right-container-arrow';
       $id = $row['event_id'];
       // Get the first 160 characters of the description
-      $shortDescription = substr($row['event_description'], 0, 160);
       $fullDescription = $row['event_description'];
+      $isTextTruncated = strlen($fullDescription) > 160;
+      $shortDescription = $isTextTruncated ? substr($fullDescription, 0, 160) . '...' : $fullDescription;
+      
       echo "<div class='tLcontainer $containerClass' data-category='{$row['event_cat']}'>";
       echo "<img src='" . $row['cat_image'] . "' alt='" . $row['cat_name'] . "'>";
       echo "<div class='text-box'>";
@@ -101,7 +103,9 @@ $catResult = $conn->query($catSql);
       echo "<p>";
       echo "<span class='short-description'>$shortDescription</span>";
       echo "<span class='full-description' style='display: none;'>$fullDescription</span>";
-      echo "<br><a href='javascript:void(0);' class='toggle-description'>More</a>";
+      if ($isTextTruncated) {
+        echo "<br><a href='javascript:void(0);' class='toggle-description'>More</a>";
+      }
       echo "</p>";
       echo "<span class='$contArrowClass'></span>";
       echo "</div>"; // text-box
