@@ -18,6 +18,54 @@ $catSql = "SELECT * FROM cat";
 $catResult = $conn->query($catSql);
 ?>
 
+<style>
+  .filter-options {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .filter-options button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .filter-options button:hover {
+    background-color: #45a049;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .checkbox-group label {
+    margin: 5px 10px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  
+  .toggle-description {
+    display: inline-block;
+    margin-top: 5px;
+    color: #0066cc;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
+
 <body id='tLbody'>
   <div class='filter-options'>
     <button id="showAll" type="button">Show All</button>
@@ -26,7 +74,7 @@ $catResult = $conn->query($catSql);
       <?php while ($catRow = $catResult->fetch_assoc()) { ?>
         <label>
           <input type="checkbox" class="category-filter" value="<?php echo $catRow['cat_id']; ?>" checked>
-          <?php echo $catRow['cat_name']; ?>
+          <span><?php echo $catRow['cat_name']; ?></span>
         </label>
       <?php } ?>
     </div>
