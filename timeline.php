@@ -28,7 +28,7 @@ $catResult = $conn->query($catSql);
     padding: 8px 16px;
     margin: 0 5px;
     background-color: #E4FDE1;
-    color: white;
+    color: #2e364a;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -94,7 +94,7 @@ $catResult = $conn->query($catSql);
       $fullDescription = $row['event_description'];
       $isTextTruncated = strlen($fullDescription) > 160;
       $shortDescription = $isTextTruncated ? substr($fullDescription, 0, 160) . '...' : $fullDescription;
-      
+
       echo "<div class='tLcontainer $containerClass' data-category='{$row['event_cat']}'>";
       echo "<img src='" . $row['cat_image'] . "' alt='" . $row['cat_name'] . "'>";
       echo "<div class='text-box'>";
