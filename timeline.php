@@ -126,18 +126,18 @@ $catResult = $conn->query($catSql);
     document.addEventListener('DOMContentLoaded', () => {
       const toggleLinks = document.querySelectorAll('.toggle-description');
       toggleLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          const shortDesc = link.previousElementSibling.previousElementSibling;
-          const fullDesc = link.previousElementSibling;
-
-          if (fullDesc.style.display === 'none') {
+        link.addEventListener('click', function() {
+          const shortDesc = this.parentNode.querySelector('.short-description');
+          const fullDesc = this.parentNode.querySelector('.full-description');
+          
+          if (this.textContent === 'More') {
             fullDesc.style.display = 'inline';
             shortDesc.style.display = 'none';
-            link.textContent = 'Less';
+            this.textContent = 'Less';
           } else {
             fullDesc.style.display = 'none';
             shortDesc.style.display = 'inline';
-            link.textContent = 'More';
+            this.textContent = 'More';
           }
         });
       });
