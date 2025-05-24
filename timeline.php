@@ -23,40 +23,40 @@ $catResult = $conn->query($catSql);
     text-align: center;
     margin: 20px 0;
   }
-  
+
   .filter-options button {
     padding: 8px 16px;
     margin: 0 5px;
-    background-color: #4CAF50;
+    background-color: #E4FDE1;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
   }
-  
+
   .filter-options button:hover {
     background-color: #45a049;
   }
-  
+
   .checkbox-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 15px;
   }
-  
+
   .checkbox-group label {
     margin: 5px 10px;
-    color: #333;
-    font-weight: 500;
+    color: #ddd;
+    font-weight: 400;
   }
-  
+
   .checkbox-group input[type="checkbox"] {
     margin-right: 5px;
     vertical-align: middle;
   }
-  
+
   .toggle-description {
     display: inline-block;
     margin-top: 5px;
