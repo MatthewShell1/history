@@ -6,9 +6,9 @@ function formatNumber($number)
   } elseif (abs($number) >= 1_000_000) {
     return round($number / 1_000_000, 1) . ' Million Years Ago';
   } elseif (abs($number) >= 1_000) {
-    return round($number / 1_000, 1) . ' Thousand Years Ago';
+    return number_format($number) . ' Years Ago';
   } else {
-    return (string)$number;
+    return (string)$number . ' Years Ago';
   }
 }
 include 'header.php';
