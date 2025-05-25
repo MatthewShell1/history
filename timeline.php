@@ -154,12 +154,36 @@ $catResult = $conn->query($catSql);
           .filter(checkbox => checkbox.checked)
           .map(checkbox => checkbox.value);
 
+        // First determine which containers will be visible
+        let visibleContainers = [];
         timelineContainers.forEach(container => {
           const category = container.getAttribute('data-category');
           if (selectedCategories.includes(category)) {
             container.style.display = 'block';
+            visibleContainers.push(container);
           } else {
             container.style.display = 'none';
+          }
+        });
+        
+        // Then update the left/right classes for visible containers
+        visibleContainers.forEach((container, index) => {
+          // Remove existing position classes
+          container.classList.remove('left-container', 'right-container');
+          
+          // Find and remove arrow classes
+          const arrow = container.querySelector('[class$="-container-arrow"]');
+          if (arrow) {
+            arrow.classList.remove('left-container-arrow', 'right-container-arrow');
+          }
+          
+          // Add new position classes based on index
+          if (index % 2 === 0) {
+            container.classList.add('left-container');
+            if (arrow) arrow.classList.add('left-container-arrow');
+          } else {
+            container.classList.add('right-container');
+            if (arrow) arrow.classList.add('right-container-arrow');
           }
         });
       }
