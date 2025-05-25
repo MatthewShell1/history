@@ -1,6 +1,28 @@
 <?php
+session_start();
 include 'header.php';
-// print_r($_POST);
+
+// Simple authentication
+$username = "mshell";
+$password = "S3ns0r101!"; // In production, use password_hash() instead
+
+// Check if login form was submitted
+if (isset($_POST['login'])) {
+  if ($_POST['username'] === $username && $_POST['password'] === $password) {
+    $_SESSION['authenticated'] = true;
+  } else {
+    $loginError = "Invalid username or password";
+  }
+}
+
+// Check if logout was requested
+if (isset($_GET['logout'])) {
+  session_destroy();
+  header("Location: add.php");
+  exit;
+}
+
+// Function to format numbers
 function formatNumber($number)
 {
   if (abs($number) >= 1_000_000_000) {
@@ -12,6 +34,43 @@ function formatNumber($number)
   } else {
     return (string)$number;
   }
+}
+
+// If not authenticated, show login form and exit
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+?>
+
+  <body>
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">Login Required</div>
+            <div class="card-body">
+              <?php if (isset($loginError)): ?>
+                <div class="alert alert-danger"><?php echo $loginError; ?></div>
+              <?php endif; ?>
+              <form method="post">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" name="login" class="btn btn-primary">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+<?php
+  include 'footer.php';
+  exit;
 }
 if (isset($_POST['action']) && $_POST['action'] == 'add') {
   $event_years_ago = $_POST['event_years_ago'];
@@ -51,7 +110,7 @@ $total_qty = $total_qty_row['qty'];
 
 <body>
   <div class="container">
-    <p><a href="index.html">Home</a>; total events: <?php echo $total_qty; ?></p>
+    <p><a href="index.html">Home</a> | <a href="add.php?logout=1">Logout</a> | total events: <?php echo $total_qty; ?></p>
     <div class="content">
       <h4>Add Events</h4>
       <table class="table table-bordered table-hover mb-5">
