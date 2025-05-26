@@ -1,4 +1,7 @@
 <?php
+header("X-Debug-Request-URI: " . $_SERVER['REQUEST_URI']);
+header("X-Debug-Host: " . $_SERVER['HTTP_HOST']);
+
 function formatNumber($number)
 {
   if (abs($number) >= 1_000_000_000) {
@@ -165,18 +168,18 @@ $catResult = $conn->query($catSql);
             container.style.display = 'none';
           }
         });
-        
+
         // Then update the left/right classes for visible containers
         visibleContainers.forEach((container, index) => {
           // Remove existing position classes
           container.classList.remove('left-container', 'right-container');
-          
+
           // Find and remove arrow classes
           const arrow = container.querySelector('[class$="-container-arrow"]');
           if (arrow) {
             arrow.classList.remove('left-container-arrow', 'right-container-arrow');
           }
-          
+
           // Add new position classes based on index
           if (index % 2 === 0) {
             container.classList.add('left-container');
