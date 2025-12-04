@@ -30,7 +30,7 @@ $catResult = $conn->query($catSql);
   .filter-options button {
     padding: 8px 16px;
     margin: 0 5px;
-    background-color: #E4FDE1;
+    background-color: #DB8A74;
     color: #2e364a;
     border: none;
     border-radius: 4px;
