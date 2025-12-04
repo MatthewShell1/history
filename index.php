@@ -22,6 +22,14 @@ $catResult = $conn->query($catSql);
 ?>
 
 <style>
+  h1 {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+    color: white;
+  }
+
   .filter-options {
     text-align: center;
     margin: 20px 0;
@@ -39,7 +47,7 @@ $catResult = $conn->query($catSql);
   }
 
   .filter-options button:hover {
-    background-color: #E0C7B8;
+    background-color: #D3B19C;
   }
 
   .checkbox-group {
