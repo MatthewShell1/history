@@ -30,7 +30,7 @@ $catResult = $conn->query($catSql);
   .filter-options button {
     padding: 8px 16px;
     margin: 0 5px;
-    background-color: #A23E48;
+    background-color: #E8D6CB;
     color: #2e364a;
     border: none;
     border-radius: 4px;
@@ -39,7 +39,7 @@ $catResult = $conn->query($catSql);
   }
 
   .filter-options button:hover {
-    background-color: #BC4E59;
+    background-color: #E0C7B8;
   }
 
   .checkbox-group {
@@ -70,6 +70,7 @@ $catResult = $conn->query($catSql);
 </style>
 
 <body id='tLbody'>
+  <h1>Life In Time</h1>
   <div class='filter-options'>
     <button id="showAll" type="button">Show All</button>
     <button id="removeAll" type="button">Remove All</button>
