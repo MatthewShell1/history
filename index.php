@@ -16,6 +16,22 @@ function formatNumber($number)
 }
 include 'header.php';
 
+// Handle contact form submission
+if (isset($_POST['contact_submit'])) {
+  $contact_name = trim(htmlspecialchars($_POST['contact_name'], ENT_QUOTES));
+  $contact_email = trim(htmlspecialchars($_POST['contact_email'], ENT_QUOTES));
+  $contact_message = trim(htmlspecialchars($_POST['contact_message'], ENT_QUOTES));
+  
+  $sql = "INSERT INTO contact (contact_name, contact_email, contact_message) 
+          VALUES ('$contact_name', '$contact_email', '$contact_message')";
+  
+  if ($conn->query($sql) === TRUE) {
+    $contactSuccess = true;
+  } else {
+    $contactError = "Error: " . $conn->error;
+  }
+}
+
 // Fetch all categories for checkbox generation
 $catSql = "SELECT * FROM cat";
 $catResult = $conn->query($catSql);
@@ -26,8 +42,11 @@ $catResult = $conn->query($catSql);
     font-family: "Permanent Marker", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 2rem;
+    font-size: 4rem;
     color: white;
+    letter-spacing: 8px;
+    text-align: center;
+    margin: 32px;
   }
 
   .filter-options {
@@ -126,6 +145,48 @@ $catResult = $conn->query($catSql);
     }
     ?>
   </div>
+  <hr class="my-5">
+  <div class="text-center">
+    <a href="#" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Contact Us</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="post">
+          <div class="modal-body">
+            <?php if (isset($contactSuccess)): ?>
+              <div class="alert alert-success">Thank you! Your message has been sent.</div>
+            <?php elseif (isset($contactError)): ?>
+              <div class="alert alert-danger"><?php echo $contactError; ?></div>
+            <?php endif; ?>
+            <div class="mb-3">
+              <label for="contact_name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="contact_name" name="contact_name" required>
+            </div>
+            <div class="mb-3">
+              <label for="contact_email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+            </div>
+            <div class="mb-3">
+              <label for="contact_message" class="form-label">Message</label>
+              <textarea class="form-control" id="contact_message" name="contact_message" rows="4" maxlength="2000" required></textarea>
+              <div class="form-text">Characters remaining: <span id="charCount">2000</span></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" name="contact_submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Handle animation delay for timeline containers
@@ -216,6 +277,17 @@ $catResult = $conn->query($catSql);
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateFilters();
       });
+
+      // Character counter for contact form
+      const messageTextarea = document.getElementById('contact_message');
+      const charCount = document.getElementById('charCount');
+      
+      if (messageTextarea && charCount) {
+        messageTextarea.addEventListener('input', function() {
+          const remaining = 2000 - this.value.length;
+          charCount.textContent = remaining;
+        });
+      }
     });
   </script>
 </body>
