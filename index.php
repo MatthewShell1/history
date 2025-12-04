@@ -39,7 +39,7 @@ $catResult = $conn->query($catSql);
   }
 
   .filter-options button:hover {
-    background-color: #C4E8C1;
+    background-color: #BC4E59;
   }
 
   .checkbox-group {
