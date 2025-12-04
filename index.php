@@ -21,10 +21,10 @@ if (isset($_POST['contact_submit'])) {
   $contact_name = trim(htmlspecialchars($_POST['contact_name'], ENT_QUOTES));
   $contact_email = trim(htmlspecialchars($_POST['contact_email'], ENT_QUOTES));
   $contact_message = trim(htmlspecialchars($_POST['contact_message'], ENT_QUOTES));
-  
+
   $sql = "INSERT INTO contact (contact_name, contact_email, contact_message) 
           VALUES ('$contact_name', '$contact_email', '$contact_message')";
-  
+
   if ($conn->query($sql) === TRUE) {
     $contactSuccess = true;
   } else {
@@ -94,17 +94,17 @@ $catResult = $conn->query($catSql);
     cursor: pointer;
     text-decoration: underline;
   }
-  
+
   hr {
     border-color: white;
   }
-  
+
   .contact-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
   }
-  
+
   .contact-link:hover {
     color: #ddd;
   }
@@ -159,8 +159,8 @@ $catResult = $conn->query($catSql);
     }
     ?>
   </div>
-  <hr class="my-5">
-  <div class="text-center">
+  <hr class="mt-5 mb-4">
+  <div class="text-center mb-4">
     <a href="javascript:void(0);" class="contact-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
   </div>
 
@@ -295,11 +295,21 @@ $catResult = $conn->query($catSql);
       // Character counter for contact form
       const messageTextarea = document.getElementById('contact_message');
       const charCount = document.getElementById('charCount');
-      
+
       if (messageTextarea && charCount) {
         messageTextarea.addEventListener('input', function() {
           const remaining = 2000 - this.value.length;
           charCount.textContent = remaining;
+        });
+      }
+      
+      // Manual modal trigger for contact link
+      const contactLink = document.querySelector('.contact-link');
+      if (contactLink) {
+        contactLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          const modal = new bootstrap.Modal(document.getElementById('contactModal'));
+          modal.show();
         });
       }
     });
