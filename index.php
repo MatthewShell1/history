@@ -94,6 +94,20 @@ $catResult = $conn->query($catSql);
     cursor: pointer;
     text-decoration: underline;
   }
+  
+  hr {
+    border-color: white;
+  }
+  
+  .contact-link {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .contact-link:hover {
+    color: #ddd;
+  }
 </style>
 
 <body id='tLbody'>
@@ -147,7 +161,7 @@ $catResult = $conn->query($catSql);
   </div>
   <hr class="my-5">
   <div class="text-center">
-    <a href="#" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
+    <a href="javascript:void(0);" class="contact-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
   </div>
 
   <!-- Contact Modal -->
