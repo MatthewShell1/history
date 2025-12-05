@@ -317,6 +317,16 @@ $catResult = $conn->query($catSql);
         });
       }
       
+      // Auto-open modal if form was submitted
+      <?php if (isset($contactSuccess) || isset($contactError)): ?>
+      document.getElementById('contactModal').style.display = 'block';
+      document.getElementById('contactModal').classList.add('show');
+      document.body.classList.add('modal-open');
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop fade show';
+      document.body.appendChild(backdrop);
+      <?php endif; ?>
+      
       // Close modal functionality
       const closeModal = function() {
         document.getElementById('contactModal').style.display = 'none';
