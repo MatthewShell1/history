@@ -161,7 +161,7 @@ $catResult = $conn->query($catSql);
   </div>
   <hr class="mt-5 mb-4">
   <div class="text-center mb-4">
-    <a href="javascript:void(0);" class="contact-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
+    <a href="javascript:void(0);" class="contact-link">Contact Us</a>
   </div>
 
   <!-- Contact Modal -->
@@ -308,10 +308,28 @@ $catResult = $conn->query($catSql);
       if (contactLink) {
         contactLink.addEventListener('click', function(e) {
           e.preventDefault();
-          const modal = new bootstrap.Modal(document.getElementById('contactModal'));
-          modal.show();
+          document.getElementById('contactModal').style.display = 'block';
+          document.getElementById('contactModal').classList.add('show');
+          document.body.classList.add('modal-open');
+          const backdrop = document.createElement('div');
+          backdrop.className = 'modal-backdrop fade show';
+          document.body.appendChild(backdrop);
         });
       }
+      
+      // Close modal functionality
+      const closeModal = function() {
+        document.getElementById('contactModal').style.display = 'none';
+        document.getElementById('contactModal').classList.remove('show');
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+      };
+      
+      const closeBtn = document.querySelector('#contactModal .btn-close');
+      const cancelBtn = document.querySelector('#contactModal .btn-secondary');
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
     });
   </script>
 </body>
