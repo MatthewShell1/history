@@ -179,15 +179,15 @@ $catResult = $conn->query($catSql);
             <?php elseif (isset($contactError)): ?>
               <div class="alert alert-danger"><?php echo $contactError; ?></div>
             <?php endif; ?>
-            <div class="mb-3">
+            <div class="mb-3" <?php if (isset($contactSuccess)) echo 'style="display: none;"'; ?>>
               <label for="contact_name" class="form-label">Name</label>
               <input type="text" class="form-control" id="contact_name" name="contact_name" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" <?php if (isset($contactSuccess)) echo 'style="display: none;"'; ?>>
               <label for="contact_email" class="form-label">Email</label>
               <input type="email" class="form-control" id="contact_email" name="contact_email" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" <?php if (isset($contactSuccess)) echo 'style="display: none;"'; ?>>
               <label for="contact_message" class="form-label">Message</label>
               <textarea class="form-control" id="contact_message" name="contact_message" rows="4" maxlength="2000" required></textarea>
               <div class="form-text">Characters remaining: <span id="charCount">2000</span></div>
@@ -195,7 +195,7 @@ $catResult = $conn->query($catSql);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" name="contact_submit" class="btn btn-primary">Submit</button>
+            <button type="submit" name="contact_submit" class="btn btn-primary" <?php if (isset($contactSuccess)) echo 'style="display: none;"'; ?>>Submit</button>
           </div>
         </form>
       </div>
