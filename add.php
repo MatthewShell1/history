@@ -1,15 +1,23 @@
 <?php
-session_start();
 include 'header.php';
-
-// Simple authentication
-$username = "mshell";
-$password = "S3ns0r101!"; // In production, use password_hash() instead
 
 // Check if login form was submitted
 if (isset($_POST['login'])) {
-  if ($_POST['username'] === $username && $_POST['password'] === $password) {
+  $submitted_username = trim($_POST['username'] ?? '');
+  $submitted_password = $_POST['password'] ?? '';
+
+  $stmt = $conn->prepare("SELECT user_id, user_name, user_password FROM `user` WHERE user_name = ? LIMIT 1");
+  $stmt->bind_param("s", $submitted_username);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $user = $result->fetch_assoc();
+  $stmt->close();
+
+  if ($user && password_verify($submitted_password, $user['user_password'])) {
+    session_regenerate_id(true);
     $_SESSION['authenticated'] = true;
+    $_SESSION['user_id'] = $user['user_id'];
+    $_SESSION['user_name'] = $user['user_name'];
   } else {
     $loginError = "Invalid username or password";
   }
